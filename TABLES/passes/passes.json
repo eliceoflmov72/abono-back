@@ -2,7 +2,7 @@
     "generic_bus": [
         {
             "Alsa": [
-                {
+                {   
                     "coordinates": [
                         {
                             "latitude": "40.466775",
