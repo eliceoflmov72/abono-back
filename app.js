@@ -1,8 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const passRouter = require('./routes/pass_routes');
+const userRouter = require('./routes/user_routes');
+const refillRouter = require('./routes/refill_routes');
+
 const app = express();
-const passRouter = require('./routes/pass_routes'); // Asegúrate de que la ruta sea correcta
 
 // Configurar CORS
 app.use(cors());
@@ -16,7 +19,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/abono')
 app.use(express.json());
 
 // Usar las rutas
-app.use('/api', passRouter);
+app.use('/api', passRouter); // Añade las rutas de abono
+app.use('/api', userRouter); // Añade las rutas de usuario
+app.use('/api', refillRouter); // Añade las rutas de refill
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 3000;

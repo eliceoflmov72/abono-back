@@ -1,17 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const passController = require('../controllers/passController'); // Asegúrate de que la ruta sea correcta
+const passController = require('../controllers/passController');
 
-// Ruta para crear un nuevo abono
+// crear un nuevo abono
 router.post('/passes', passController.createPass);
 
-// Ruta para eliminar un abono por ID
+// eliminar un abono por ID
 router.delete('/passes/:id', passController.deletePass);
 
-// Ruta para obtener todos los abonos
+// obtener todos los abonos
 router.get('/passes', passController.getAllPasses);
 
-// Ruta para actualizar un abono por ID
+// actualizar un abono por ID
 router.put('/passes/:id', passController.updatePass);
+
+// obtener un abono por ID
+router.get('/passes/:id', passController.getPassById);
 
 module.exports = router;

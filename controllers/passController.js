@@ -1,4 +1,19 @@
-const Pass = require('../models/pass'); // Asegúrate de que la ruta sea correcta
+const Pass = require('../models/pass');
+const generateUUID = require('../shared/id_factory');
+
+// Controlador para obtener un abono por ID
+const getPassById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const pass = await Pass.findOne({ id }); // Usando findOne para buscar por id
+        if (!pass) {
+            return res.status(404).json({ message: 'Abono no encontrado' });
+        }
+        res.status(200).json(pass);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener el abono', error });
+    }
+};
 
 // Controlador para crear un nuevo abono
 const createPass = async (req, res) => {
@@ -6,13 +21,13 @@ const createPass = async (req, res) => {
         const { company, coordinates, name, description, valid_period, price, image, type } = req.body;
 
         // Comprobar si ya existe un abono con el mismo nombre, precio y tipo
-        // Dado que el _id de mongoDB es practicamente unico no es necesario tenerlo en cuenta
         const existingPass = await Pass.findOne({ name, price, type });
         if (existingPass) {
             return res.status(400).json({ message: 'El abono ya existe' });
         }
 
         const newPass = new Pass({
+            id: generateUUID(),
             company,
             coordinates,
             name,
@@ -34,7 +49,7 @@ const createPass = async (req, res) => {
 const deletePass = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedPass = await Pass.findByIdAndDelete(id);
+        const deletedPass = await Pass.findOneAndDelete({ id }); // Usando findOneAndDelete para eliminar por id
 
         if (!deletedPass) {
             return res.status(404).json({ message: 'Abono no encontrado' });
@@ -60,7 +75,7 @@ const getAllPasses = async (req, res) => {
 const updatePass = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedPass = await Pass.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedPass = await Pass.findOneAndUpdate({ id }, req.body, { new: true }); // Usando findOneAndUpdate para actualizar por id
 
         if (!updatedPass) {
             return res.status(404).json({ message: 'Abono no encontrado' });
@@ -73,6 +88,7 @@ const updatePass = async (req, res) => {
 };
 
 module.exports = {
+    getPassById,
     createPass,
     deletePass,
     getAllPasses,
