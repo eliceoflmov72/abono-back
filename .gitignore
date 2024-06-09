@@ -1,0 +1,26 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de entorno
+.env
+
+
+# Archivos del IDE
+.vscode/
+.idea/
+
+# Salidas de complicación
+dist/
+build/
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de paquetes
+*.tgz
