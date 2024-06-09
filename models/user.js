@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  tipo: {
+    type: String,
+    enum: ['admin', 'default'],
+    default: 'default'
   }
 }, { versionKey: false }); // Desactiva el campo __v
 

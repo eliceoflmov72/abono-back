@@ -11,10 +11,10 @@ const auth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, config.secretJwtToken);
     req.user = decoded;
-    console.log('Token verificado:', decoded); // IMPORTANT
+    console.log('Token verificado:', decoded);
     next();
   } catch (error) {
-    console.error('Error en la verificación del token:', error); // IMPORTANT
+    console.error('Error en la verificación del token:', error);
     res.status(400).json({ message: 'Token no válido.' });
   }
 };

@@ -12,17 +12,6 @@ const coordinateSchema = new mongoose.Schema({
   }
 }, { _id: false }); // Desactiva el _id para coordinates
 
-const validPeriodSchema = new mongoose.Schema({
-  start_date: {
-    type: Date,
-    required: false
-  },
-  end_date: {
-    type: Date,
-    required: false
-  }
-}, { _id: false }); // Desactiva el _id para valid_period
-
 const refillSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -45,11 +34,6 @@ const refillSchema = new mongoose.Schema({
     required: true
   },
   description: {
-    type: String,
-    required: true
-  },
-  valid_period: validPeriodSchema,
-  image: {
     type: String,
     required: true
   },

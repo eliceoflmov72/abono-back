@@ -13,10 +13,6 @@
     ],
     "name": "Refill Name",
     "description": "Description of the refill",
-    "valid_period": {
-        "start_date": "2023-01-01",
-        "end_date": "2023-12-31"
-    },
     "price": 50,
     "image": "https://example.com/image.jpg",
     "type": "bus"
