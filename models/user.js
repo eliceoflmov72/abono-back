@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const generateUUID = require('../shared/id_factory'); // Asegúrate de tener esta función para generar UUIDs
+const generateUUID = require('../shared/id_factory');
 
 const userSchema = new mongoose.Schema({
   id: {
     type: String,
     unique: true,
     required: true,
-    default: generateUUID // Asigna un UUID por defecto usando generateUUID
+    default: generateUUID // Asigna un UUID por defecto generateUUID
   },
   name: {
     type: String,

@@ -17,7 +17,7 @@ const userHistorySchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    default: generateUUID // Asigna un UUID por defecto usando generateUUID
+    default: generateUUID // Asigna un UUID por defecto generateUUID
   },
   userId: {
     type: String,

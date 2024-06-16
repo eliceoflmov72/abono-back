@@ -6,7 +6,7 @@ const generateUUID = require('../shared/id_factory');
 const getRefillById = async (req, res) => {
     try {
         const { id } = req.params;
-        const refill = await Refill.findOne({ id }); // Usando findOne para buscar por id
+        const refill = await Refill.findOne({ id }); // findOne para buscar por id
         if (!refill) {
             return res.status(404).json({ message: 'Refill no encontrado' });
         }
@@ -50,7 +50,7 @@ const createRefill = async (req, res) => {
 const deleteRefill = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedRefill = await Refill.findOneAndDelete({ id }); // Usando findOneAndDelete para eliminar por id
+        const deletedRefill = await Refill.findOneAndDelete({ id }); // findOneAndDelete para eliminar por id
 
         if (!deletedRefill) {
             return res.status(404).json({ message: 'Refill no encontrado' });
@@ -76,7 +76,7 @@ const getAllRefills = async (req, res) => {
 const updateRefill = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedRefill = await Refill.findOneAndUpdate({ id }, req.body, { new: true }); // Usando findOneAndUpdate para actualizar por id
+        const updatedRefill = await Refill.findOneAndUpdate({ id }, req.body, { new: true }); // findOneAndUpdate para actualizar por id
 
         if (!updatedRefill) {
             return res.status(404).json({ message: 'Refill no encontrado' });

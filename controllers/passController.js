@@ -5,7 +5,7 @@ const generateUUID = require('../shared/id_factory');
 const getPassById = async (req, res) => {
     try {
         const { id } = req.params;
-        const pass = await Pass.findOne({ id }); // Usando findOne para buscar por id
+        const pass = await Pass.findOne({ id }); // findOne para buscar por id
         if (!pass) {
             return res.status(404).json({ message: 'Abono no encontrado' });
         }
@@ -49,7 +49,7 @@ const createPass = async (req, res) => {
 const deletePass = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedPass = await Pass.findOneAndDelete({ id }); // Usando findOneAndDelete para eliminar por id
+        const deletedPass = await Pass.findOneAndDelete({ id }); // findOneAndDelete para eliminar por id
 
         if (!deletedPass) {
             return res.status(404).json({ message: 'Abono no encontrado' });
@@ -75,7 +75,7 @@ const getAllPasses = async (req, res) => {
 const updatePass = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedPass = await Pass.findOneAndUpdate({ id }, req.body, { new: true }); // Usando findOneAndUpdate para actualizar por id
+        const updatedPass = await Pass.findOneAndUpdate({ id }, req.body, { new: true }); // findOneAndUpdate para actualizar por id
 
         if (!updatedPass) {
             return res.status(404).json({ message: 'Abono no encontrado' });

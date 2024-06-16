@@ -2,20 +2,21 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 const auth = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
+  const token = req.header('Authorization').replace('Bearer ', '');
 
   if (!token) {
-    return res.status(401).json({ message: 'Acceso denegado. No se proporcionó un token.' });
+    return res.status(401).send('Acceso denegado. No se proporcionó un token.');
   }
 
   try {
-    const decoded = jwt.verify(token, config.secretJwtToken);
-    req.user = decoded;
-    console.log('Token verificado:', decoded);
+    const verified = jwt.verify(token, config.secretJwtToken);
+    req.user = verified;
     next();
   } catch (error) {
-    console.error('Error en la verificación del token:', error);
-    res.status(400).json({ message: 'Token no válido.' });
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).send({ message: 'Token expirado', tokenExpired: true });
+    }
+    res.status(400).send('Token inválido');
   }
 };
 

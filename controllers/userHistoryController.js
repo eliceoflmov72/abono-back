@@ -1,5 +1,23 @@
 const UserHistory = require('../models/user_history');
 
+
+// Función para obtener todos los comentarios de un pase específico
+exports.getAllCommentsForPass = async (req, res) => {
+  const { passId } = req.params;
+
+  try {
+    const userHistories = await UserHistory.find({ 'comments.passId': passId });
+    const comments = userHistories.flatMap(userHistory =>
+      userHistory.comments.filter(comment => comment.passId === passId)
+    );
+
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error('Error obteniendo los comentarios:', error);
+    res.status(500).send('Error obteniendo los comentarios');
+  }
+};
+
 exports.addPassToHistory = async (req, res) => {
   const { userId, passId } = req.body;
 

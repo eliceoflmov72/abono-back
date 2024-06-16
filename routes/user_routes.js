@@ -9,16 +9,19 @@ router.post('/users/register', userController.registerUser);
 // iniciar sesión
 router.post('/users/login', userController.loginUser);
 
-// Para obtener un usuario por ID
+// obtener un usuario por ID
 router.get('/users/:id', auth, userController.getUserById);
 
-// Para eliminar un usuario por ID
+// eliminar un usuario por ID
 router.delete('/users/:id', auth, userController.deleteUser);
 
-// Para obtener todos los usuarios
+// obtener todos los usuarios
 router.get('/users', auth, userController.getAllUsers);
 
-// Para actualizar un usuario por ID
+// actualizar un usuario por ID
 router.put('/users/:id', auth, userController.updateUser);
+
+// refrescar el token
+router.post('/users/refresh-token', userController.refreshToken);
 
 module.exports = router;

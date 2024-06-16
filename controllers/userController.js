@@ -9,6 +9,29 @@ const generateToken = (user) => {
   return jwt.sign({ id: user.id }, config.secretJwtToken, { expiresIn: '1h' });
 };
 
+const refreshToken = async (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ message: 'Token requerido' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, config.secretJwtToken);
+    const user = await User.findOne({ id: decoded.id });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const newToken = jwt.sign({ id: user.id }, config.secretJwtToken, { expiresIn: '1h' });
+
+    res.status(200).json({ token: newToken });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al renovar el token', error });
+  }
+};
+
 // Controlador para obtener un usuario por ID
 const getUserById = async (req, res) => {
   try {
@@ -124,5 +147,6 @@ module.exports = {
   loginUser,
   deleteUser,
   getAllUsers,
-  updateUser
+  updateUser,
+  refreshToken
 };
