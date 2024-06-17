@@ -1,7 +1,7 @@
 const Pass = require('../models/pass');
 const generateUUID = require('../shared/id_factory');
 
-// Controlador para obtener un abono por ID
+// Controlador para obtener abono por id
 const getPassById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -11,7 +11,7 @@ const getPassById = async (req, res) => {
         }
         res.status(200).json(pass);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener el abono', error });
+        res.status(500).json({ message: 'Error al obtener abono', error });
     }
 };
 
@@ -20,7 +20,7 @@ const createPass = async (req, res) => {
     try {
         const { company, coordinates, name, description, valid_period, price, image, type } = req.body;
 
-        // Comprobar si ya existe un abono con el mismo nombre, precio y tipo
+        // Comprobar si existe un abono con == nombre / precio / tipo
         const existingPass = await Pass.findOne({ name, price, type });
         if (existingPass) {
             return res.status(400).json({ message: 'El abono ya existe' });
@@ -41,37 +41,37 @@ const createPass = async (req, res) => {
         const savedPass = await newPass.save();
         res.status(201).json(savedPass);
     } catch (error) {
-        res.status(500).json({ message: 'Error al crear el abono', error });
+        res.status(500).json({ message: 'Error al crear abono', error });
     }
 };
 
-// Controlador para eliminar un abono por ID
+// Controlador para eliminar un abono por id
 const deletePass = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedPass = await Pass.findOneAndDelete({ id }); // findOneAndDelete para eliminar por id
-
+        
         if (!deletedPass) {
             return res.status(404).json({ message: 'Abono no encontrado' });
         }
 
         res.status(200).json({ message: 'Abono eliminado correctamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el abono', error });
+        res.status(500).json({ message: 'Error al eliminar abono', error });
     }
 };
 
 // Controlador para obtener todos los abonos
 const getAllPasses = async (req, res) => {
     try {
-        const passes = await Pass.find();
+        const passes = await Pass.find(); // find para obtener todos los abonos
         res.status(200).json(passes);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los abonos', error });
+        res.status(500).json({ message: 'Error al obtener abonos', error });
     }
 };
 
-// Controlador para actualizar un abono por ID
+// Controlador para actualizar un abono por id
 const updatePass = async (req, res) => {
     try {
         const { id } = req.params;
@@ -83,7 +83,7 @@ const updatePass = async (req, res) => {
 
         res.status(200).json(updatedPass);
     } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el abono', error });
+        res.status(500).json({ message: 'Error al actualizar abono', error });
     }
 };
 

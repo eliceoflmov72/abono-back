@@ -9,6 +9,10 @@ router.post('/users/register', userController.registerUser);
 // iniciar sesión
 router.post('/users/login', userController.loginUser);
 
+
+// 2 - Asociamos el auth a rutas
+// Cualquier solicitud pasa primero por auth
+
 // obtener un usuario por ID
 router.get('/users/:id', auth, userController.getUserById);
 

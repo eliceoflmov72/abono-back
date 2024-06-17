@@ -28,21 +28,21 @@ const refreshToken = async (req, res) => {
 
     res.status(200).json({ token: newToken });
   } catch (error) {
-    res.status(500).json({ message: 'Error al renovar el token', error });
+    res.status(500).json({ message: 'Error al renovar token', error });
   }
 };
 
-// Controlador para obtener un usuario por ID
+// Controlador para obtener un usuario por id
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findOne({ id });
+    const user = await User.findOne({ id }); // findOne para buscar por id
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener el usuario', error });
+    res.status(500).json({ message: 'Error al obtener usuario', error });
   }
 };
 
@@ -70,7 +70,7 @@ const registerUser = async (req, res) => {
 
     res.status(201).json({ user: savedUser, token });
   } catch (error) {
-    res.status(500).json({ message: 'Error al registrar el usuario', error });
+    res.status(500).json({ message: 'Error al registrar usuario', error });
   }
 };
 
@@ -94,42 +94,42 @@ const loginUser = async (req, res) => {
     const token = generateToken(user);
     res.status(200).json({ user, token });
   } catch (error) {
-    console.error('Error en loginUser:', error);
-    res.status(500).json({ message: 'Error al iniciar sesión', error });
+    console.error('Error en loginUser:', error); // Imprimr el error en consola
+    res.status(500).json({ message: 'Error al iniciar sesión', error }); // Enviar respuesta al cliente (cuerpo del error)
   }
 };
 
-// Controlador para eliminar un usuario por ID
+// Controlador para eliminar un usuario por id
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedUser = await User.findOneAndDelete({ id });
+    const deletedUser = await User.findOneAndDelete({ id }); // findOneAndDelete para eliminar por id
 
     if (!deletedUser) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    res.status(200).json({ message: 'Usuario eliminado correctamente' });
+    res.status(200).json({ message: 'Usuario eliminado' });
   } catch (error) {
-    res.status(500).json({ message: 'Error al eliminar el usuario', error });
+    res.status(500).json({ message: 'Error al eliminar usuario', error });
   }
 };
 
 // Controlador para obtener todos los usuarios
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find(); // find para obtener todos los usuarios
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener los usuarios', error });
+    res.status(500).json({ message: 'Error al obtener usuarios', error });
   }
 };
 
-// Controlador para actualizar un usuario por ID
+// Controlador para actualizar un usuario por id
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedUser = await User.findOneAndUpdate({ id }, req.body, { new: true });
+    const updatedUser = await User.findOneAndUpdate({ id }, req.body, { new: true }); // findOneAndUpdate para actualizar por id
 
     if (!updatedUser) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
@@ -137,7 +137,7 @@ const updateUser = async (req, res) => {
 
     res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(500).json({ message: 'Error al actualizar el usuario', error });
+    res.status(500).json({ message: 'Error al actualizar usuario', error });
   }
 };
 

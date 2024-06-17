@@ -38,15 +38,15 @@ const userSchema = new mongoose.Schema({
   }
 }, { versionKey: false }); // Desactiva el campo __v
 
-// Middleware para encriptar la contraseña antes de guardarla
+// Definición del middleware antes del save
 userSchema.pre('save', async function (next) {
   try {
-    if (!this.isModified('password')) {
-      return next();
+    if (!this.isModified('password')) { // Si no ha sido modificado
+      return next(); // callback para pasar al siguiente middleware
     }
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10); // Cifrado de 10 (costo de procesamiento y complejidad de cifrado)
     this.password = await bcrypt.hash(this.password, salt);
-    next();
+    next(); // Para pasar el control al siguiente middleware o termina si todo esta bien
   } catch (error) {
     next(error);
   }

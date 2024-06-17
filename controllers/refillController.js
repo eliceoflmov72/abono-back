@@ -2,7 +2,7 @@ const Refill = require('../models/refill');
 const Pass = require('../models/pass');
 const generateUUID = require('../shared/id_factory');
 
-// Controlador para obtener un refill por ID
+// Controlador para obtener un refill por id
 const getRefillById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -12,7 +12,7 @@ const getRefillById = async (req, res) => {
         }
         res.status(200).json(refill);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener el refill', error });
+        res.status(500).json({ message: 'Error al obtener refill', error });
     }
 };
 
@@ -42,11 +42,11 @@ const createRefill = async (req, res) => {
         const savedRefill = await newRefill.save();
         res.status(201).json(savedRefill);
     } catch (error) {
-        res.status(500).json({ message: 'Error al crear el refill', error });
+        res.status(500).json({ message: 'Error al crear refill', error });
     }
 };
 
-// Controlador para eliminar un refill por ID
+// Controlador para eliminar un refill por id
 const deleteRefill = async (req, res) => {
     try {
         const { id } = req.params;
@@ -58,21 +58,21 @@ const deleteRefill = async (req, res) => {
 
         res.status(200).json({ message: 'Refill eliminado correctamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el refill', error });
+        res.status(500).json({ message: 'Error al eliminar refill', error });
     }
 };
 
 // Controlador para obtener todos los refills
 const getAllRefills = async (req, res) => {
     try {
-        const refills = await Refill.find();
+        const refills = await Refill.find(); // find para obtener todos los refills
         res.status(200).json(refills);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los refills', error });
+        res.status(500).json({ message: 'Error al obtener refills', error });
     }
 };
 
-// Controlador para actualizar un refill por ID
+// Controlador para actualizar un refill por id
 const updateRefill = async (req, res) => {
     try {
         const { id } = req.params;
@@ -84,7 +84,7 @@ const updateRefill = async (req, res) => {
 
         res.status(200).json(updatedRefill);
     } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el refill', error });
+        res.status(500).json({ message: 'Error al actualizar refill', error });
     }
 };
 
@@ -92,13 +92,13 @@ const updateRefill = async (req, res) => {
 const getRefillsByPassId = async (req, res) => {
     try {
         const { passId } = req.params;
-        const refills = await Refill.find({ passId });
+        const refills = await Refill.find({ passId }); // find para obtener refills por passId
         if (!refills.length) {
-            return res.status(404).json({ message: 'No se encontraron refills para este passId' });
+            return res.status(404).json({ message: 'No se encontraron refills de este passId' });
         }
         res.status(200).json(refills);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los refills por passId', error });
+        res.status(500).json({ message: 'Error al obtener los refills del passId', error });
     }
 };
 
