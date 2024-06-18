@@ -9,6 +9,14 @@ const commentSchema = new mongoose.Schema({
   comment: {
     type: String,
     required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  createdBy: {
+    type: String,
+    required: true
   }
 }, { _id: false }); // Desactiva el _id para los comentarios
 

@@ -79,7 +79,7 @@ exports.getUserHistory = async (req, res) => {
 };
 
 exports.addCommentToHistory = async (req, res) => {
-  const { userId, passId, comment } = req.body;
+  const { userId, passId, comment, createdBy } = req.body;
 
   try {
     let userHistory = await UserHistory.findOne({ userId }); // Buscar UserHistory concreto con ese userId
@@ -88,10 +88,10 @@ exports.addCommentToHistory = async (req, res) => {
       userHistory = new UserHistory({
         userId,
         passIds: [],
-        comments: [{ passId, comment }] // Crear nuevo UserHistory con el comentario
+        comments: [{ passId, comment, createdBy }] // Crear nuevo UserHistory con el comentario
       });
     } else {
-      userHistory.comments.push({ passId, comment }); // Añadir comentario al UserHistory existente
+      userHistory.comments.push({ passId, comment, createdBy }); // Añadir comentario al UserHistory existente
     }
 
     await userHistory.save();

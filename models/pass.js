@@ -45,7 +45,7 @@ const passSchema = new mongoose.Schema({
   },
   valid_period: validPeriodSchema,
   price: {
-    type: Number,
+    type: mongoose.Decimal128,
     required: true
   },
   image: {
